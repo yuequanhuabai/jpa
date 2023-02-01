@@ -1,0 +1,14 @@
+root: quYf)+r8Whti
+
+Deprecated configuration parameters innodb_log_file_size and/or innodb_log_files_in_group have been used to compute innodb_redo_log_capacity=2147483648. Please use innodb_redo_log_capacity instead
+
+--character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+
+'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+
+ /usr/local/mysql/bin/mysqld (mysqld 8.0.30) initializing of server in progress as process 45780
+
+
+
+
+jdbc:mysql://192.168.186.128:3306/mysql?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false

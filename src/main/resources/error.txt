@@ -1,0 +1,61 @@
+初始化命令mysqld --initialize --console出错
+命令作用： 是使MySQL初始化并得到临时密码
+如下：
+PS C:\Software\mysql-8.0.11-winx64\bin> mysqld --initialize --console
+2018-10-31T03:18:05.201142Z 0 [System] [MY-013169] [Server] C:\Software\mysql-8.0.11-winx64\bin\mysqld.exe (mysqld 8.0.11) initializing of server in progress as process 2356
+2018-10-31T03:18:05.231148Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2018-10-31T03:18:05.242682Z 0 [ERROR] [MY-010119] [Server] Aborting
+2018-10-31T03:18:05.251312Z 0 [System] [MY-010910] [Server] C:\Software\mysql-8.0.11-winx64\bin\mysqld.exe: Shutdown complete (mysqld 8.0.11)  MySQL Community Server - GPL.
+
+解決方案： 清空data内数据，重新输入mysqld --initialize --console
+
+data文件路徑：C:\Program Files\MySQL\MySQL Server 8.0\data
+data文件夹的作用：
+1、存放bin/data（所有数据库的信息都在这里）；
+2、存放数据库的文件夹，比如有个数据库叫teacher，那么会有个teacher文件夹，存放teacher数据库的所有文件。
+
+（以下方法的命令好像不适合mysql8.0版本）
+最后有个临时密码生成，用临时密码登入后修改密码（stackoverflow上也是这个解决方案）
+ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码' PASSWORD EXPIRE NEVER;
+
+最后解决方案还是在gui工具界面用零时密码登录，根据提示重新修改了密码。
+gui工具： 路径：D:\software\develop_tools\navicat
+工具破解参考网址： https://www.cnblogs.com/kkdaj/p/16260681.html
+
+问题：
+Public Key Retrieval is not allowed Public Key Retrieval is not allowed
+解决方案：
+jdbc:mysql://localhost:3306/db?allowPublicKeyRetrieval=true&useSSL=false
+
+问题：
+初次更改密码：
+You must reset your password using ALTER USER statement before executing this statement
+解决方案：
+ALTER USER 'root'@'localhost' IDENTIFIED  BY 'MYSQL_ROOT_PASSWORD';
+flush privileges;
+
+问题：
+null,  message from server: "Host '192.168.186.1' is not allowed to connect to this MySQL server"
+
+解决方案1：
+改表法。可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 "mysql" 数据库里的 "user" 表里的 "host" 项，从"localhost"改称"%"
+
+mysql -u root -p
+
+mysql>use mysql;
+mysql>update user set host = '%' where user = 'root';
+mysql>select host, user from user;
+
+退出重启mysql：
+service mysql restart
+
+解决方案2：
+
+
+
+
+
+
+
+
+
